@@ -1,11 +1,12 @@
 import traceback 
+import os
 import pandas as pd 
 from dotenv import load_dotenv 
-from sc.mcqgenrator.utils import read_file, get__table_data 
-from src.mcqgenrator. logger import logging
+from src.mcqgenerator.utils import get_table_data, read_file
+from src.mcqgenerator.logger import logging
 
 #imporing necessary packages packages from langchain
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SequentialChain

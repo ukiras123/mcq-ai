@@ -1,5 +1,5 @@
 import os
-import PyPDF2
+from PyPDF2 import PdfReader
 import json
 import traceback
 
@@ -7,18 +7,21 @@ import traceback
 def read_file(file):
     if file.name.endswith('.pdf'):
         try:
-            pdf_reader=PyPDF2.PdfFileReader(file)
-            text=""
-            for page in pdf_reader.pages:
-                text+=page.extractText()
-            return text
+            reader=PdfReader(file)
+            text=[]
+            for page_number in range(1):
+                page = reader.pages[page_number]
+                page_text = page.extract_text()
+                
+                text.append(page_text)
+            return ''.join(text)
         except Exception as e:
             raise Exception(f"Error reading PDF file: {e}")
         
     elif file.name.endswith('.txt'):
         try:
             with open(file.name, 'r') as f:
-                return f.read().decode('utf-8')
+                return f.read()
         except Exception as e:
             raise Exception(f"Error reading TXT file: {e}")
     else:
